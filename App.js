@@ -1,22 +1,38 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, SafeAreaView, Text } from "react-native";
+import { StyleSheet, SafeAreaView, Text, StatusBar, Platform, View, useWindowDimensions } from "react-native";
 
 export default function App() {
+  console.log(useWindowDimensions());
   return (
-    <SafeAreaView style={[styles.container, styles.text]}>
-      <Text style={styles.text}>Hello!</Text>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <View style={styles.main} />
+      <View style={styles.main2} />
+      <View style={styles.main3} />
+    </View>
   );
 }
-// 1.15.51 in video -> modules voor padding android top
+// 1.40.44 : flex basis
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "white",
     flex: 1,
-    backgroundColor: "orange"
+    flexDirection: "row",
+    justifyContent: "center"
   },
-  text: {
-    color: "white"
+  main: {
+    backgroundColor: "blue",
+    width: 100,
+    height: 100
+  },
+  main2: {
+    backgroundColor: "gold",
+    width: 100,
+    height: 100
+  },
+  main3: {
+    backgroundColor: "tomato",
+    width: 100,
+    height: 100
   }
 });
