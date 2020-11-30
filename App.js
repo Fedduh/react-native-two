@@ -1,11 +1,23 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+import AppText from "./app/components/AppText";
 import ViewImageScreen from "./app/screens/ViewImageScreen";
 import WelcomeScreen from "./app/screens/WelcomeScreen";
+import Card from "./app/components/Card";
+
+import AppButton from "./app/components/AppButton";
+import ListingDetailsScreen from "./app/screens/ListingDetailsScreen";
 
 export default function App() {
-  return <ViewImageScreen />;
+  return <ViewImageScreen></ViewImageScreen>;
 }
-// 1.46.55 : flex basis
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  main: {
+    padding: 20,
+    marginTop: 20,
+    backgroundColor: "#f8f4f4"
+  }
+});
