@@ -1,7 +1,8 @@
 export default {
   primary: "#fc5c65",
-  primaryText: "#FFF",
-  secondary: "#4ecdc4",
+  primaryText: "#FFF", // red
+  secondary: "#4ecdc4", // green
+  tertiary: "#ffe66d", // yellow
   black: "#000",
   white: "#fff",
   medium: "#6e6969",
