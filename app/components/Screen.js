@@ -1,9 +1,14 @@
 import React from "react";
-import { FlatList, SafeAreaView, Platform, StyleSheet, StatusBar } from "react-native";
+import { View, SafeAreaView, Platform, StyleSheet, StatusBar } from "react-native";
 // import Constants from "expo-constants"; // alternative
 
-function Screen({ children }) {
-  return <SafeAreaView style={styles.screen}>{children}</SafeAreaView>;
+function Screen({ children, style }) {
+  return (
+    <SafeAreaView style={[styles.screen]}>
+      {/* iOs cannot apply padding to safeareaview */}
+      <View style={style}>{children}</View>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({

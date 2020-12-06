@@ -1,20 +1,22 @@
 import React, { useState } from "react";
-import { FlatList } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
+
 import Card from "../components/Card";
 import Screen from "../components/Screen";
+import colors from "../config/colors";
 
 const initialListings = [
   {
     id: 1,
     image: require("../assets/jacket.jpg"),
     title: "Red jacket for sale",
-    subTitle: "$100"
+    price: "$100"
   },
   {
     id: 2,
     image: require("../assets/couch.jpg"),
     title: "Couch in great condition",
-    subTitle: "$1000"
+    price: "$1000"
   }
 ];
 
@@ -22,14 +24,21 @@ function ListingsScreen(props) {
   const [listings, setListings] = useState(initialListings);
 
   return (
-    <Screen>
+    <Screen style={styles.screen}>
       <FlatList
         data={listings}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <Card image={item.image} title={item.title} subTitle={item.subTitle} />}
+        renderItem={({ item }) => <Card image={item.image} title={item.title} subTitle={item.price} />}
       />
     </Screen>
   );
 }
+
+const styles = StyleSheet.create({
+  screen: {
+    padding: 20,
+    backgroundColor: colors.light
+  }
+});
 
 export default ListingsScreen;
