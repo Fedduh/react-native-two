@@ -17,13 +17,34 @@ import ListingDetailsScreen from "./app/screens/ListingDetailsScreen";
 import AccountScreen from "./app/screens/AccountScreen";
 import ListingsScreen from "./app/screens/ListingsScreen";
 
+const categories = [
+  {
+    label: "Furniture",
+    value: 1
+  },
+  {
+    label: "Clothing",
+    value: 2
+  },
+  {
+    label: "Cameras",
+    value: 3
+  }
+];
+
 export default function App() {
-  const [isNew, setIsNew] = useState(false);
+  const [category, setCategory] = useState(categories[0]);
 
   return (
     <Screen style={styles.main}>
-      <AppPicker icon="apps" placeholder="Category" />
-      <AppTextInput icon="email" placeholder="email" />
+      <AppPicker
+        icon="apps"
+        placeholder="Category"
+        items={categories}
+        selectedItem={category}
+        onSelectItem={(item) => setCategory(item)}
+      />
+      <AppTextInput icon="email" placeholder="Email" />
     </Screen>
   );
 }
