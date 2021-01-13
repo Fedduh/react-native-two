@@ -1,36 +1,43 @@
-import React, { useState } from "react";
-import { StyleSheet, Switch, Text, TextInput, View } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Image, View, TouchableOpacity } from "react-native";
+import * as ImagePicker from "expo-image-picker";
 
-import AppText from "./app/components/Text";
-import AppPicker from "./app/components/Picker";
-import Card from "./app/components/Card";
-
+import Button from "./app/components/Button";
 import Screen from "./app/components/Screen";
-
-import AppButton from "./app/components/Button";
-import AppTextInput from "./app/components/TextInput";
-import ViewImageScreen from "./app/screens/ViewImageScreen";
-import WelcomeScreen from "./app/screens/WelcomeScreen";
-import MessagesScreen from "./app/screens/MessagesScreen";
-import ListingDetailsScreen from "./app/screens/ListingDetailsScreen";
-import AccountScreen from "./app/screens/AccountScreen";
-import ListingsScreen from "./app/screens/ListingsScreen";
-import LoginScreen from "./app/screens/LoginScreen";
-import RegisterScreen from "./app/screens/RegisterScreen";
-import ListingEditScreen from "./app/screens/ListingEditScreen";
+import Icon from "./app/components/Icon";
+import colors from "./app/config/colors";
+import ImageInput from "./app/components/ImageInput";
 
 export default function App() {
-  return <ListingEditScreen></ListingEditScreen>;
+  const [imageUri, setImageUri] = useState();
+
+  const requestPermission = async () => {
+    // using expo imagepicker for asking permission
+    const result = await ImagePicker.requestCameraRollPermissionsAsync();
+    if (!result.granted) {
+      alert("you need to enable permission to access library");
+    }
+  };
+  // pass empty array to only run once
+  // this useEffect function cannot be async itself
+  useEffect(() => {
+    requestPermission();
+  }, []);
+
+  return (
+    <Screen>
+      <ImageInput imageUri={imageUri} onChangeImage={(uri) => setImageUri(uri)}></ImageInput>
+    </Screen>
+  );
 }
 
 const styles = StyleSheet.create({
-  main: {
-    padding: 20,
-    marginTop: 20
-  },
-  input: {
-    borderBottomColor: "#ccc",
-    borderBottomWidth: 1
+  tile: {
+    borderRadius: 30,
+    width: 120,
+    height: 120,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: colors.light
   }
 });
