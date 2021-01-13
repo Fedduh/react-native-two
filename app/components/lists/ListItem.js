@@ -3,19 +3,31 @@ import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
 import colors from "../../config/colors";
-import AppText from "../AppText";
+import AppText from "../Text";
+import Icon from "../Icon";
 
-function ListItem({ image, title, subTitle, IconComponent, onPress, renderRightActions }) {
+function ListItem({ image, title, subTitle, IconComponent, onPress, renderRightActions, showChevrons }) {
   return (
     <Swipeable renderRightActions={renderRightActions}>
       <TouchableOpacity onPress={onPress}>
         <View style={styles.container}>
-          {IconComponent}
-          {image && <Image style={styles.image} source={image} />}
-          <View style={styles.detailsContainer}>
-            <AppText style={styles.title}>{title}</AppText>
-            {subTitle && <AppText style={styles.subTitle}>{subTitle}</AppText>}
+          <View style={styles.containerPerson}>
+            {IconComponent}
+            {image && <Image style={styles.image} source={image} />}
+            <View style={styles.detailsContainer}>
+              <AppText style={styles.title} numberOfLines={1}>
+                {title}
+              </AppText>
+              {subTitle && (
+                <AppText style={styles.subTitle} numberOfLines={2}>
+                  {subTitle}
+                </AppText>
+              )}
+            </View>
           </View>
+          {showChevrons && (
+            <Icon name="chevron-right" backgroundColor="transparent" iconColor={colors.medium} />
+          )}
         </View>
       </TouchableOpacity>
     </Swipeable>
@@ -23,8 +35,13 @@ function ListItem({ image, title, subTitle, IconComponent, onPress, renderRightA
 }
 
 const styles = StyleSheet.create({
+  containerPerson: {
+    flexDirection: "row"
+  },
   container: {
     flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     padding: 15,
     backgroundColor: colors.white
   },

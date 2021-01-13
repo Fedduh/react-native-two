@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { StyleSheet, Switch, Text, TextInput, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import AppText from "./app/components/AppText";
-import AppPicker from "./app/components/AppPicker";
+import AppText from "./app/components/Text";
+import AppPicker from "./app/components/Picker";
 import Card from "./app/components/Card";
 
 import Screen from "./app/components/Screen";
 
-import AppButton from "./app/components/AppButton";
-import AppTextInput from "./app/components/AppTextInput";
+import AppButton from "./app/components/Button";
+import AppTextInput from "./app/components/TextInput";
 import ViewImageScreen from "./app/screens/ViewImageScreen";
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import MessagesScreen from "./app/screens/MessagesScreen";

@@ -3,18 +3,28 @@ import { View, StyleSheet, TouchableWithoutFeedback, Modal, Button, FlatList } f
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import defaultStyles from "../config/styles";
-import AppText from "./AppText";
-import Screen from "../components/Screen";
+import AppText from "./Text";
+import Screen from "./Screen";
 import PickerItem from "./PickerItem";
 
-function AppPicker({ icon, items, placeholder, onSelectItem, selectedItem }) {
+function AppPicker({
+  icon,
+  items,
+  placeholder,
+  onSelectItem,
+  selectedItem,
+  width = "100%",
+  // optional component to pass with default component
+  PickerItemComponent = PickerItem,
+  numberOfColumns = 1
+}) {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
     // <> = React.Fragment ("template")
     <>
       <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
-        <View style={styles.container}>
+        <View style={[styles.container, { width }]}>
           {icon && (
             <MaterialCommunityIcons
               name={icon}
@@ -33,14 +43,18 @@ function AppPicker({ icon, items, placeholder, onSelectItem, selectedItem }) {
           <MaterialCommunityIcons name="chevron-down" size={20} color={defaultStyles.colors.medium} />
         </View>
       </TouchableWithoutFeedback>
+      {/* The modal for selecting an item */}
       <Modal visible={modalVisible} animationType="slide">
         <Screen>
           <Button title="close" onPress={() => setModalVisible(false)} />
           <FlatList
+            numColumns={numberOfColumns}
+            contentContainerStyle={styles.categoryContainer}
             data={items}
             keyExtractor={(item) => item.value.toString()}
             renderItem={({ item }) => (
-              <PickerItem
+              <PickerItemComponent
+                item={item}
                 label={item.label}
                 onPress={() => {
                   setModalVisible(false);
@@ -60,7 +74,6 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.colors.light,
     borderRadius: 25,
     flexDirection: "row",
-    width: "100%",
     padding: 15,
     marginVertical: 10
   },
