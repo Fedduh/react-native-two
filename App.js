@@ -6,27 +6,36 @@ import Button from "./app/components/Button";
 import Screen from "./app/components/Screen";
 import Icon from "./app/components/Icon";
 import colors from "./app/config/colors";
-import ImageInput from "./app/components/ImageInput";
+import ImageInputList from "./app/components/ImageInputList";
 
 export default function App() {
-  const [imageUri, setImageUri] = useState();
+  const [imageUris, setImageUris] = useState([]);
 
-  const requestPermission = async () => {
-    // using expo imagepicker for asking permission
-    const result = await ImagePicker.requestCameraRollPermissionsAsync();
-    if (!result.granted) {
-      alert("you need to enable permission to access library");
-    }
+  const handleAdd = (uri) => {
+    console.log("adding");
+    console.log(uri);
+    setImageUris([...imageUris, uri]);
+    // setTimeout(() => {
+    //   console.log(imageUris);
+    // }, 500);
   };
-  // pass empty array to only run once
-  // this useEffect function cannot be async itself
-  useEffect(() => {
-    requestPermission();
-  }, []);
+
+  const handleRemove = (uri) => {
+    setImageUris(
+      imageUris.filter((imageUri) => {
+        imageUri !== uri;
+      })
+    );
+  };
 
   return (
     <Screen>
-      <ImageInput imageUri={imageUri} onChangeImage={(uri) => setImageUri(uri)}></ImageInput>
+      {/* handleAdd does same as {(uri) => handleAdd(uri)} */}
+      <ImageInputList
+        imageUris={imageUris}
+        onAddImage={handleAdd}
+        onRemoveImage={handleRemove}
+      ></ImageInputList>
     </Screen>
   );
 }
