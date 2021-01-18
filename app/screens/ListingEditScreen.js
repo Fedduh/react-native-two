@@ -4,14 +4,15 @@ import * as Yup from "yup";
 
 import Screen from "../components/Screen";
 
-import { AppForm, AppFormField, SubmitButton, AppFormPicker } from "../components/forms";
+import { AppForm, AppFormField, SubmitButton, AppFormPicker, FormImagePicker } from "../components/forms";
 import CategoryPickerItem from "../components/CategoryPickerItem";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
   price: Yup.number().required().min(1).max(10000).label("Price"),
   category: Yup.object().required().nullable().label("Category"),
-  description: Yup.string().label("Description")
+  description: Yup.string().label("Description"),
+  images: Yup.array().min(1, "Please select at least one image.")
 });
 
 const categories = [
@@ -25,10 +26,11 @@ function ListingEditScreen(props) {
   return (
     <Screen style={styles.container}>
       <AppForm
-        initialValues={{ title: "", price: "", category: null, description: "" }}
+        initialValues={{ title: "", price: "", category: null, description: "", images: [] }}
         onSubmit={(values) => console.log(values)}
         validationSchema={validationSchema}
       >
+        <FormImagePicker name="images" />
         <AppFormField name="title" placeholder="Title" maxLength={255} />
         <AppFormField name="price" placeholder="Price" keyboardType="numeric" maxLength={8} width={120} />
         <AppFormPicker
